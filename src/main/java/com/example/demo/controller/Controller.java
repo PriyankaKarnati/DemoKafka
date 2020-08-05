@@ -1,11 +1,12 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.User;
 import com.example.demo.producer.Producer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/kafka")
 public class Controller {
 
     private final Producer producer;
@@ -15,9 +16,14 @@ public class Controller {
         this.producer = producer;
     }
 
-    @GetMapping(value = "/publish")
-    public String sendMessageToKafkaTopic(@RequestParam("message") String message) {
-        this.producer.sendMessage(message);
-        return "Message sent to topic";
+    @PostMapping("/detail")
+    public String sendMessageToKafkaTopic(@ModelAttribute User user) {
+        this.producer.sendRecord(user);
+        return "record sent to topic";
+    }
+    @GetMapping("/detail")
+    public String greetingForm(Model model) {
+        model.addAttribute("greeting", new User());
+        return "record created";
     }
 }
