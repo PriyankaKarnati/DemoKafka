@@ -17,7 +17,10 @@ public class Producer {
 
     public void sendRecord(User user) {
         logger.info(String.format("#### -> Producing message -> %s", user.toString()));
-        this.kafkaTemplate.send(TOPIC,new User(user.getName(),user.getAge()));
+        User newUser = new User();
+        newUser.setName(user.getName());
+        newUser.setAge(user.getAge());
+        this.kafkaTemplate.send(TOPIC,newUser);
     }
 
 }

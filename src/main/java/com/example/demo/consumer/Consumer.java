@@ -1,5 +1,6 @@
 package com.example.demo.consumer;
 
+import com.example.demo.model.User;
 import com.example.demo.producer.Producer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +14,7 @@ public class Consumer {
     private final Logger logger = LoggerFactory.getLogger(Producer.class);
 
     @KafkaListener(topics = "test", groupId = "group_id")
-    public void consume(String message) throws IOException {
-        logger.info(String.format("#### -> Consumed message -> %s", message));
+    public void consume(User user) throws IOException {
+        logger.info(String.format("#### -> Consumed message -> %s", user.toString()));
     }
 }

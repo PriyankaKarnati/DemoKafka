@@ -3,27 +3,29 @@ package com.example.demo.controller;
 import com.example.demo.model.User;
 import com.example.demo.producer.Producer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-public class Controller {
+@Controller
+public class UserController {
 
     private final Producer producer;
 
     @Autowired
-    public Controller(Producer producer) {
+    public UserController(Producer producer) {
         this.producer = producer;
     }
 
-    @PostMapping("/detail")
-    public String sendMessageToKafkaTopic(@ModelAttribute User user) {
+    @PostMapping("/user")
+    public String sendMessageToKafkaTopic(@ModelAttribute User user, Model model) {
+        model.addAttribute("userR",user);
         this.producer.sendRecord(user);
-        return "record sent to topic";
+        return "done";
     }
-    @GetMapping("/detail")
+    @GetMapping("/user")
     public String greetingForm(Model model) {
-        model.addAttribute("greeting", new User());
-        return "record created";
+        model.addAttribute("userS", new User());
+        return "hello";
     }
 }
