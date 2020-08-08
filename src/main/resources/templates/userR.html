@@ -8,7 +8,7 @@
     <h1>Result</h1>
 <!--/*@thymesVar id="userR" type="com.example.demo.model.User"*/-->
     <p th:text="'name: ' + ${userR.getName()}" />
-    <p th:number="'age: ' + ${userR.getAge()}" />
+    <p th:text="'age: ' + ${userR.getAge()}" />
     <a href="/user">Submit another message</a>
 </body>
 </html>
