@@ -1,7 +1,17 @@
 package com.example.demo.model;
 
-public class User {
+import javax.persistence.*;
+import java.io.Serializable;
+@Entity
+@Table(name = "postgres")
+public class User implements Serializable {
+    private static final long serialVersionUID = -2343243243242432341L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "age")
     private int age;
 
     public User(String name, int age) {
